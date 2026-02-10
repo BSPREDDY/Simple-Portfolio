@@ -8,7 +8,6 @@ Welcome to my portfolio website! This repository contains the source code for my
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Getting Started](#getting-started)
-- [Screenshot](#screenshot)
 
 ## About Me
 
