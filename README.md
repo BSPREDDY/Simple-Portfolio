@@ -34,9 +34,9 @@ Welcome to my portfolio website! This repository contains the source code for my
 ## Getting Started
 
 ### Clone the repository: 
-`git clone https://github.com/HamzaZaidiX/My-Portfolio-html-css-js.git`
+`git clone https://github.com/BSPREDDY/Simple-Portfolio`
 
 ## [Portfolio Website Click Here =>💁‍♂️🚀](https://hamza-zaidi.netlify.app/)
 
 
-**Feel free to explore the code and customize it to suit your needs also Like and Give Heart to `[HAMZA ZAIDI](https://github.com/HamzaZaidiX)` ! Happy coding!**
+**Feel free to explore the code and customize it to suit your needs also Like and Give Heart to `[HAMZA ZAIDI](https://github.com/BSPREDDY)` ! Happy coding!**
