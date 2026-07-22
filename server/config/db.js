@@ -1,43 +1,39 @@
 const mongoose = require('mongoose');
 
-// Cache the connection promise so concurrent requests share one connection attempt
-let connectionPromise = null;
+let cachedPromise = null;
 
 const connectDB = async () => {
-  // Already connected — reuse
+  // If already connected, return existing connection
   if (mongoose.connection.readyState === 1) {
-    return;
+    return mongoose.connection;
   }
 
-  // Connection in progress — share the same promise
-  if (connectionPromise) {
-    return connectionPromise;
+  const connStr = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/surya_portfolio';
+
+  if (!cachedPromise) {
+    cachedPromise = mongoose
+      .connect(connStr, {
+        serverSelectionTimeoutMS: 5000,
+        connectTimeoutMS: 10000,
+        bufferCommands: false,
+      })
+      .then((m) => {
+        console.log(`MongoDB Connected successfully to: ${m.connection.host}`);
+        return m;
+      })
+      .catch((error) => {
+        cachedPromise = null;
+        console.warn(`MongoDB Connection Error: ${error.message}`);
+        console.warn('Backend will serve structured fallback data for portfolio endpoints.');
+        return null;
+      });
   }
 
-  const connStr =
-    process.env.MONGODB_URI ||
-    'mongodb://127.0.0.1:27017/surya_portfolio';
-
-  console.log('Connecting to MongoDB...');
-
-  connectionPromise = mongoose
-    .connect(connStr, {
-      serverSelectionTimeoutMS: 10000,
-      connectTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
-      bufferCommands: false,
-    })
-    .then(() => {
-      console.log(`✅ MongoDB Connected: ${mongoose.connection.host}`);
-    })
-    .catch((err) => {
-      console.warn(`⚠️  MongoDB Connection Failed: ${err.message}`);
-      connectionPromise = null; // reset so next request can retry
-    });
-
-  return connectionPromise;
+  await cachedPromise;
+  return mongoose.connection;
 };
 
+// Use mongoose readyState for accurate live status (1 = connected)
 const getDBStatus = () => mongoose.connection.readyState === 1;
 
 module.exports = { connectDB, getDBStatus };

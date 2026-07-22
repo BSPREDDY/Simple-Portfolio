@@ -25,7 +25,7 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: '' });
 
     try {
-      const response = await axios.post('/api/contact', formData);
+      const response = await axios.post('https://surya-portfolio-server.vercel.app/api/contact', formData);
       if (response.data && response.data.success) {
         setStatus({ loading: false, success: true, error: '' });
         setFormData({ name: '', email: '', subject: '', message: '' });
