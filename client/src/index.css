@@ -54,7 +54,7 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-bg-dark);
@@ -128,6 +128,7 @@ body {
   transition: var(--transition-normal);
   border: none;
   outline: none;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -140,6 +141,12 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(30, 144, 255, 0.5);
   background: linear-gradient(135deg, #3399ff 0%, #0077e6 100%);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-secondary {
@@ -197,16 +204,107 @@ body {
   50% { transform: translateY(-10px); }
 }
 
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .floating-anim {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Responsive Grid */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(30, 144, 255, 0.15);
+  border-top-color: #1e90ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ==================== RESPONSIVE BREAKPOINTS ==================== */
+
+/* Tablet */
 @media (max-width: 768px) {
   .section {
-    padding: 60px 0;
+    padding: 70px 0;
   }
   .section-title {
     font-size: 2rem;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .container {
+    padding: 0 16px;
+  }
+  .btn {
+    padding: 12px 22px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .section {
+    padding: 56px 0;
+  }
+  .section-title {
+    font-size: 1.75rem;
+  }
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+  .container {
+    padding: 0 14px;
+  }
+  .btn {
+    padding: 11px 18px;
+    font-size: 0.9rem;
+    gap: 7px;
+  }
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* Extra small */
+@media (max-width: 360px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .container {
+    padding: 0 12px;
   }
 }

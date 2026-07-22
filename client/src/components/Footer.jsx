@@ -14,147 +14,142 @@ const Footer = ({ socialLinks }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const socialItems = [
+    { href: links.email, Icon: Mail, color: '#1e90ff', title: 'Email' },
+    { href: links.whatsapp, Icon: Phone, color: '#32a852', title: 'WhatsApp' },
+    { href: links.instagram, Icon: Instagram, color: '#e1306c', title: 'Instagram' },
+    { href: links.linkedin, Icon: Linkedin, color: '#0077b5', title: 'LinkedIn' },
+    { href: links.github, Icon: Github, color: '#ffffff', title: 'GitHub' },
+  ];
+
   return (
     <footer
       style={{
         backgroundColor: '#07090d',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-        padding: '40px 0 30px',
+        padding: '40px 0 28px',
       }}
     >
-      <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <a
-            href={links.email}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-bg-card)',
-              border: '1px solid var(--color-border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              transition: 'all 0.2s ease',
-            }}
-            title="Email"
-          >
-            <Mail size={18} />
-          </a>
-
-          <a
-            href={links.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-bg-card)',
-              border: '1px solid var(--color-border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#32a852',
-              transition: 'all 0.2s ease',
-            }}
-            title="WhatsApp"
-          >
-            <Phone size={18} />
-          </a>
-
-          <a
-            href={links.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-bg-card)',
-              border: '1px solid var(--color-border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#e1306c',
-              transition: 'all 0.2s ease',
-            }}
-            title="Instagram"
-          >
-            <Instagram size={18} />
-          </a>
-
-          <a
-            href={links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-bg-card)',
-              border: '1px solid var(--color-border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#0077b5',
-              transition: 'all 0.2s ease',
-            }}
-            title="LinkedIn"
-          >
-            <Linkedin size={18} />
-          </a>
-
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-bg-card)',
-              border: '1px solid var(--color-border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              transition: 'all 0.2s ease',
-            }}
-            title="GitHub"
-          >
-            <Github size={18} />
-          </a>
+      <div className="container">
+        {/* Brand */}
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.1rem', color: '#fff', marginBottom: '4px' }}>
+            Surya <span style={{ color: '#1e90ff' }}>Prakash Reddy</span>
+          </p>
+          <p style={{ fontSize: '0.85rem', color: '#64748b' }}>Full Stack MERN Developer</p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', textAlign: 'center', margin: '0 auto' }}>
+        {/* Social Links */}
+        <div className="footer-socials">
+          {socialItems.map(({ href, Icon, color, title }) => (
+            <a
+              key={title}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-btn"
+              style={{ color }}
+              title={title}
+              aria-label={title}
+            >
+              <Icon size={18} />
+            </a>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <p className="footer-copy">
             &copy; {new Date().getFullYear()} SURYA PRAKASH REDDY. All Rights Reserved. Built with MERN Stack.
           </p>
-
           <button
             onClick={scrollToTop}
-            style={{
-              padding: '10px',
-              borderRadius: '50%',
-              backgroundColor: '#1e90ff',
-              color: '#ffffff',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(30, 144, 255, 0.3)',
-            }}
+            className="footer-top-btn"
             title="Scroll to top"
+            aria-label="Scroll to top"
           >
             <ArrowUp size={18} />
           </button>
         </div>
       </div>
+
+      <style>{`
+        .footer-socials {
+          display: flex;
+          justify-content: center;
+          gap: 14px;
+          flex-wrap: wrap;
+          margin-bottom: 28px;
+        }
+        .footer-social-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background-color: var(--color-bg-card);
+          border: 1px solid var(--color-border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+        .footer-social-btn:hover {
+          border-color: currentColor;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .footer-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+        .footer-copy {
+          color: #64748b;
+          font-size: 0.85rem;
+          flex: 1;
+          min-width: 0;
+        }
+        .footer-top-btn {
+          padding: 10px;
+          border-radius: 50%;
+          background-color: #1e90ff;
+          color: #ffffff;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+          flex-shrink: 0;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .footer-top-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(30, 144, 255, 0.5);
+        }
+
+        @media (max-width: 480px) {
+          .footer-bottom {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .footer-copy {
+            font-size: 0.78rem;
+          }
+          .footer-socials {
+            gap: 10px;
+          }
+          .footer-social-btn {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

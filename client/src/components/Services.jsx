@@ -37,6 +37,13 @@ const Services = ({ data }) => {
     }
   };
 
+  const getIconBg = (color) => {
+    if (color === '#1e90ff') return 'rgba(30, 144, 255, 0.15)';
+    if (color === '#32a852') return 'rgba(50, 168, 82, 0.15)';
+    if (color === '#8a2be2') return 'rgba(138, 43, 226, 0.15)';
+    return 'rgba(255, 255, 255, 0.1)';
+  };
+
   return (
     <section id="services" className="section" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
       <div className="container">
@@ -45,39 +52,24 @@ const Services = ({ data }) => {
           <h2 className="section-title">Services</h2>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '32px',
-          }}
-        >
+        <div className="services-grid">
           {services.map((service, index) => (
             <div
               key={service._id || index}
-              className="glass-card"
-              style={{
-                padding: '36px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
+              className="glass-card services-card"
             >
               <div
                 style={{
                   width: '64px',
                   height: '64px',
                   borderRadius: '16px',
-                  backgroundColor: `rgba(${
-                    service.color === '#1e90ff' ? '30, 144, 255' : service.color === '#32a852' ? '50, 168, 82' : '138, 43, 226'
-                  }, 0.15)`,
+                  backgroundColor: getIconBg(service.color),
                   color: service.color,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '8px',
+                  flexShrink: 0,
                 }}
               >
                 {getIcon(service.icon)}
@@ -86,7 +78,7 @@ const Services = ({ data }) => {
               <h3
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.4rem',
+                  fontSize: '1.3rem',
                   fontWeight: 700,
                   color: '#ffffff',
                 }}
@@ -94,11 +86,11 @@ const Services = ({ data }) => {
                 {service.title}
               </h3>
 
-              <p style={{ color: '#94a3b8', lineHeight: 1.7, fontSize: '0.95rem' }}>
+              <p style={{ color: '#94a3b8', lineHeight: 1.7, fontSize: '0.95rem', flexGrow: 1 }}>
                 {service.description}
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto', paddingTop: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1' }}>
                   <Check size={16} color={service.color} /> Clean & Maintainable Code
                 </div>
@@ -110,6 +102,31 @@ const Services = ({ data }) => {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 28px;
+        }
+        .services-card {
+          padding: 32px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        @media (max-width: 640px) {
+          .services-grid {
+            grid-template-columns: 1fr;
+          }
+          .services-card {
+            padding: 24px 20px;
+          }
+        }
+      `}</style>
     </section>
   );
 };

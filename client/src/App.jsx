@@ -23,6 +23,7 @@ function App() {
         }
       } catch (error) {
         console.warn('API connection notice:', error.message);
+        // App still renders with fallback data built into each component
       } finally {
         setLoading(false);
       }
@@ -49,9 +50,18 @@ function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner" />
+        <p className="loading-text">Loading Portfolio...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="portfolio-app">

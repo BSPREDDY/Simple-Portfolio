@@ -47,94 +47,32 @@ const Qualification = ({ data }) => {
         </div>
 
         {/* Tab Buttons */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '16px',
-            marginBottom: '48px',
-          }}
-        >
-          <button
-            onClick={() => setActiveTab('experience')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '12px 24px',
-              borderRadius: 'var(--radius-full)',
-              fontWeight: 600,
-              fontSize: '1rem',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              backgroundColor: activeTab === 'experience' ? '#1e90ff' : 'var(--color-bg-card)',
-              color: activeTab === 'experience' ? '#ffffff' : 'var(--color-text-muted)',
-              boxShadow: activeTab === 'experience' ? '0 4px 15px rgba(30, 144, 255, 0.35)' : 'none',
-            }}
-          >
-            <Briefcase size={18} /> Experience
-          </button>
-
-          <button
-            onClick={() => setActiveTab('education')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '12px 24px',
-              borderRadius: 'var(--radius-full)',
-              fontWeight: 600,
-              fontSize: '1rem',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              backgroundColor: activeTab === 'education' ? '#1e90ff' : 'var(--color-bg-card)',
-              color: activeTab === 'education' ? '#ffffff' : 'var(--color-text-muted)',
-              boxShadow: activeTab === 'education' ? '0 4px 15px rgba(30, 144, 255, 0.35)' : 'none',
-            }}
-          >
-            <GraduationCap size={18} /> Education
-          </button>
+        <div className="qual-tabs">
+          {[
+            { id: 'experience', label: 'Experience', Icon: Briefcase },
+            { id: 'education', label: 'Education', Icon: GraduationCap },
+          ].map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setActiveTab(id)}
+              className={`qual-tab-btn ${activeTab === id ? 'qual-tab-active' : ''}`}
+            >
+              <Icon size={18} /> {label}
+            </button>
+          ))}
         </div>
 
         {/* Timeline View */}
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {currentList.map((item, index) => (
               <div
                 key={item._id || index}
-                className="glass-card"
-                style={{
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '10px',
-                  position: 'relative',
-                  borderLeft: '4px solid #1e90ff',
-                }}
+                className="glass-card qual-item"
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '1.25rem',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      fontSize: '0.85rem',
-                      color: '#1e90ff',
-                      fontWeight: 600,
-                    }}
-                  >
+                <div className="qual-item-header">
+                  <h3 className="qual-item-title">{item.title}</h3>
+                  <div className="qual-item-date">
                     <Calendar size={14} /> {item.date}
                   </div>
                 </div>
@@ -164,13 +102,102 @@ const Qualification = ({ data }) => {
               border: '1px dashed var(--color-border)',
             }}
           >
-            <p style={{ color: '#94a3b8', marginBottom: '16px' }}>Want to review my complete qualifications & credentials?</p>
+            <p style={{ color: '#94a3b8', marginBottom: '16px' }}>
+              Want to review my complete qualifications & credentials?
+            </p>
             <a href="/assets/Surya_Resume.pdf" download className="btn btn-primary">
               <Download size={18} /> Download Full Resume (PDF)
             </a>
           </div>
         </div>
       </div>
+
+      <style>{`
+        .qual-tabs {
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+          margin-bottom: 48px;
+          flex-wrap: wrap;
+        }
+        .qual-tab-btn {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 28px;
+          border-radius: var(--radius-full);
+          font-weight: 600;
+          font-size: 1rem;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          background-color: var(--color-bg-card);
+          color: var(--color-text-muted);
+          font-family: var(--font-primary);
+        }
+        .qual-tab-active {
+          background-color: #1e90ff !important;
+          color: #ffffff !important;
+          box-shadow: 0 4px 15px rgba(30, 144, 255, 0.35);
+        }
+        .qual-item {
+          padding: 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          border-left: 4px solid #1e90ff;
+        }
+        .qual-item-header {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: flex-start;
+        }
+        .qual-item-title {
+          font-family: var(--font-heading);
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #ffffff;
+          line-height: 1.3;
+        }
+        .qual-item-date {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.82rem;
+          color: #1e90ff;
+          font-weight: 600;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+          .qual-tabs {
+            gap: 10px;
+          }
+          .qual-tab-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+          }
+          .qual-item {
+            padding: 20px 16px;
+          }
+          .qual-item-title {
+            font-size: 1.05rem;
+          }
+        }
+        @media (max-width: 400px) {
+          .qual-tab-btn {
+            padding: 9px 16px;
+            font-size: 0.85rem;
+            gap: 7px;
+          }
+          .qual-item-header {
+            flex-direction: column;
+          }
+        }
+      `}</style>
     </section>
   );
 };

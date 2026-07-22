@@ -84,18 +84,10 @@ const Hero = ({ data }) => {
         }}
       />
 
-      <div className="container">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1.2fr 0.8fr',
-            gap: '60px',
-            alignItems: 'center',
-          }}
-          className="hero-grid"
-        >
+      <div className="container" style={{ width: '100%' }}>
+        <div className="hero-grid">
           {/* Content Left */}
-          <div>
+          <div className="hero-content">
             <div
               className="badge"
               style={{ marginBottom: '20px', display: 'inline-flex', gap: '8px' }}
@@ -103,16 +95,7 @@ const Hero = ({ data }) => {
               <Sparkles size={16} /> Welcome to my Portfolio
             </div>
 
-            <h1
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '3.2rem',
-                fontWeight: 800,
-                lineHeight: 1.15,
-                marginBottom: '16px',
-                color: '#ffffff',
-              }}
-            >
+            <h1 className="hero-title">
               Hi, I am <br />
               <span
                 style={{
@@ -126,51 +109,24 @@ const Hero = ({ data }) => {
             </h1>
 
             {/* Typewriter text */}
-            <div
-              style={{
-                fontSize: '1.6rem',
-                fontWeight: 700,
-                height: '42px',
-                color: '#1e90ff',
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '20px',
-              }}
-            >
+            <div className="hero-typewriter">
               <span>{displayedText}</span>
               <span
                 style={{
                   display: 'inline-block',
                   width: '3px',
-                  height: '28px',
+                  height: '24px',
                   backgroundColor: '#1e90ff',
                   marginLeft: '4px',
                   animation: 'pulseGlow 1s infinite',
+                  verticalAlign: 'middle',
                 }}
               />
             </div>
 
-            <p
-              style={{
-                fontSize: '1.05rem',
-                color: '#94a3b8',
-                marginBottom: '32px',
-                maxWidth: '600px',
-                lineHeight: 1.7,
-              }}
-            >
-              {heroData.description}
-            </p>
+            <p className="hero-description">{heroData.description}</p>
 
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '16px',
-                alignItems: 'center',
-                marginBottom: '40px',
-              }}
-            >
+            <div className="hero-buttons">
               <a href={`mailto:${heroData.email}`} className="btn btn-primary">
                 <Mail size={18} /> Hire Me!
               </a>
@@ -188,59 +144,23 @@ const Hero = ({ data }) => {
             </div>
 
             {/* Stats Card */}
-            <div
-              style={{
-                display: 'flex',
-                gap: '32px',
-                paddingTop: '24px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              }}
-            >
+            <div className="hero-stats">
               <div>
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    fontWeight: 800,
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-heading)',
-                  }}
-                >
-                  {heroData.projectsCompleted}+
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#64748b' }}>Projects Completed</div>
+                <div className="hero-stat-number">{heroData.projectsCompleted}+</div>
+                <div className="hero-stat-label">Projects Completed</div>
               </div>
               <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.08)', paddingLeft: '32px' }}>
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    fontWeight: 800,
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-heading)',
-                  }}
-                >
-                  2025
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#64748b' }}>CS Graduate</div>
+                <div className="hero-stat-number">2025</div>
+                <div className="hero-stat-label">CS Graduate</div>
               </div>
             </div>
           </div>
 
           {/* Avatar Image Right */}
-          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: '380px',
-                aspectRatio: '1/1',
-                borderRadius: '30px',
-                padding: '12px',
-                background: 'linear-gradient(135deg, rgba(30, 144, 255, 0.3), rgba(50, 168, 82, 0.3))',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
-              }}
-            >
+          <div className="hero-avatar-wrapper">
+            <div className="hero-avatar-frame">
               <img
-                src="/public/profile.jpg"
+                src="/profile.jpg"
                 alt={heroData.name}
                 style={{
                   width: '100%',
@@ -248,21 +168,17 @@ const Hero = ({ data }) => {
                   objectFit: 'cover',
                   borderRadius: '22px',
                   backgroundColor: '#12161f',
+                  display: 'block',
+                }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement.style.background =
+                    'linear-gradient(135deg, rgba(30,144,255,0.3), rgba(50,168,82,0.3))';
                 }}
               />
               {/* Floating tech badge */}
               <div
-                className="floating-anim glass-card"
-                style={{
-                  position: 'absolute',
-                  bottom: '-20px',
-                  left: '-20px',
-                  padding: '12px 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  borderRadius: '16px',
-                }}
+                className="floating-anim glass-card hero-floating-badge"
               >
                 <CheckCircle2 size={24} color="#32a852" />
                 <div>
@@ -276,15 +192,162 @@ const Hero = ({ data }) => {
       </div>
 
       <style>{`
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 60px;
+          align-items: center;
+        }
+        .hero-content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .hero-title {
+          font-family: var(--font-heading);
+          font-size: 3.2rem;
+          font-weight: 800;
+          line-height: 1.15;
+          margin-bottom: 16px;
+          color: #ffffff;
+        }
+        .hero-typewriter {
+          font-size: 1.6rem;
+          font-weight: 700;
+          min-height: 42px;
+          color: #1e90ff;
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .hero-description {
+          font-size: 1.05rem;
+          color: #94a3b8;
+          margin-bottom: 32px;
+          max-width: 600px;
+          line-height: 1.7;
+        }
+        .hero-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+          align-items: center;
+          margin-bottom: 40px;
+        }
+        .hero-stats {
+          display: flex;
+          gap: 32px;
+          padding-top: 24px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          width: 100%;
+        }
+        .hero-stat-number {
+          font-size: 2rem;
+          font-weight: 800;
+          color: #ffffff;
+          font-family: var(--font-heading);
+        }
+        .hero-stat-label {
+          font-size: 0.85rem;
+          color: #64748b;
+        }
+        .hero-avatar-wrapper {
+          position: relative;
+          display: flex;
+          justify-content: center;
+        }
+        .hero-avatar-frame {
+          position: relative;
+          width: 100%;
+          max-width: 380px;
+          aspect-ratio: 1/1;
+          border-radius: 30px;
+          padding: 12px;
+          background: linear-gradient(135deg, rgba(30, 144, 255, 0.3), rgba(50, 168, 82, 0.3));
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+        .hero-floating-badge {
+          position: absolute;
+          bottom: -20px;
+          left: -20px;
+          padding: 12px 20px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border-radius: 16px;
+        }
+
+        /* Tablet */
         @media (max-width: 900px) {
           .hero-grid {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr;
+            gap: 48px;
             text-align: center;
           }
-          .hero-grid > div:first-child {
-            display: flex;
-            flex-direction: column;
+          .hero-content {
             align-items: center;
+          }
+          .hero-title {
+            font-size: 2.6rem;
+          }
+          .hero-buttons {
+            justify-content: center;
+          }
+          .hero-stats {
+            justify-content: center;
+          }
+          .hero-avatar-wrapper {
+            order: -1;
+          }
+          .hero-avatar-frame {
+            max-width: 300px;
+          }
+          .hero-floating-badge {
+            bottom: -16px;
+            left: -10px;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+          .hero-title {
+            font-size: 2rem;
+          }
+          .hero-typewriter {
+            font-size: 1.25rem;
+            min-height: 34px;
+          }
+          .hero-description {
+            font-size: 0.95rem;
+          }
+          .hero-stat-number {
+            font-size: 1.6rem;
+          }
+          .hero-avatar-frame {
+            max-width: 260px;
+          }
+          .hero-floating-badge {
+            padding: 8px 14px;
+            gap: 8px;
+          }
+        }
+
+        /* Extra small */
+        @media (max-width: 400px) {
+          .hero-title {
+            font-size: 1.75rem;
+          }
+          .hero-typewriter {
+            font-size: 1.1rem;
+          }
+          .hero-buttons {
+            gap: 10px;
+          }
+          .hero-stats {
+            gap: 20px;
+          }
+          .hero-stats > div:last-child {
+            padding-left: 20px;
           }
         }
       `}</style>

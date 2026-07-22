@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { getPortfolioData, handleContactForm } = require('../controllers/portfolioController');
-const { getDBStatus } = require('../config/db');
+const mongoose = require('mongoose');
 
-// Health Check Endpoint
+// Health Check Endpoint — uses mongoose readyState for accurate live status
 router.get('/health', (req, res) => {
   res.json({
     status: 'online',
     timestamp: new Date(),
-    dbConnected: getDBStatus(),
+    dbConnected: mongoose.connection.readyState === 1,
   });
 });
 
