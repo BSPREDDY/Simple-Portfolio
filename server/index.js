@@ -41,6 +41,5 @@ if (require('fs').existsSync(clientDistPath)) {
 app.listen(PORT, () => {
   console.log(`================================================`);
   console.log(`🚀 Portfolio Server running on port ${PORT}`);
-  console.log(`🌐 API Endpoint: http://localhost:${PORT}/api/portfolio`);
   console.log(`================================================`);
 });
