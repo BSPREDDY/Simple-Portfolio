@@ -1,33 +1,43 @@
 const mongoose = require('mongoose');
 
-let isConnected = false;
+// Cache the connection promise so concurrent requests share one connection attempt
+let connectionPromise = null;
 
 const connectDB = async () => {
-  if (isConnected) {
-    console.log('MongoDB already connected.');
+  // Already connected — reuse
+  if (mongoose.connection.readyState === 1) {
     return;
   }
-  try {
-    const connStr =
-      process.env.MONGODB_URI ||
-      'mongodb://127.0.0.1:27017/surya_portfolio';
 
-    await mongoose.connect(connStr, {
-      serverSelectionTimeoutMS: 10000,  // Increased for Vercel cold starts
+  // Connection in progress — share the same promise
+  if (connectionPromise) {
+    return connectionPromise;
+  }
+
+  const connStr =
+    process.env.MONGODB_URI ||
+    'mongodb://127.0.0.1:27017/surya_portfolio';
+
+  console.log('Connecting to MongoDB...');
+
+  connectionPromise = mongoose
+    .connect(connStr, {
+      serverSelectionTimeoutMS: 10000,
       connectTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-      bufferCommands: false,            // Fail fast instead of buffering when offline
+      bufferCommands: false,
+    })
+    .then(() => {
+      console.log(`✅ MongoDB Connected: ${mongoose.connection.host}`);
+    })
+    .catch((err) => {
+      console.warn(`⚠️  MongoDB Connection Failed: ${err.message}`);
+      connectionPromise = null; // reset so next request can retry
     });
-    isConnected = true;
-    console.log(`MongoDB Connected successfully to: ${mongoose.connection.host}`);
-  } catch (error) {
-    isConnected = false;
-    console.warn(`MongoDB Connection Error: ${error.message}`);
-    console.warn('Backend will serve structured fallback data for portfolio endpoints.');
-  }
+
+  return connectionPromise;
 };
 
-// Use mongoose readyState for accurate live status (1 = connected)
 const getDBStatus = () => mongoose.connection.readyState === 1;
 
 module.exports = { connectDB, getDBStatus };

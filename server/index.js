@@ -8,13 +8,28 @@ const apiRoutes = require('./routes/api');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to Database
-connectDB();
-
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ─── KEY FIX: Await DB connection before processing any /api request ──────────
+// In Vercel serverless, each cold-start invocation must await the connection
+// before handling the request. Without this, the handler responds before
+// mongoose.connect() finishes — causing dbConnected: false.
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (err) {
+    // Log but don't block — fallback data will be served
+    console.warn('DB middleware error:', err.message);
+  }
+  next();
+});
 
 // API Routes
 app.use('/api', apiRoutes);
@@ -34,6 +49,8 @@ if (require('fs').existsSync(clientDistPath)) {
 app.listen(PORT, () => {
   console.log(`================================================`);
   console.log(`🚀 Portfolio Server running on port ${PORT}`);
-  console.log(`🌐 API Endpoint: http://localhost:${PORT}/api/portfolio`);
+  console.log(`🌐 API: http://localhost:${PORT}/api/portfolio`);
   console.log(`================================================`);
 });
+
+module.exports = app;
