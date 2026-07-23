@@ -44,9 +44,9 @@ const Header = ({ activeSection }) => {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Brand Logo */}
           <a href="#hero" className="header-brand" aria-label="Surya Prakash Reddy - Home">
-            <div className="header-logo-icon">
+            {/* <div className="header-logo-icon">
               <Code2 size={20} />
-            </div>
+            </div> */}
             <span className="header-brand-text">
               Surya<span style={{ color: '#1e90ff' }}> Prakash Reddy</span>
             </span>
