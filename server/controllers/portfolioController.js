@@ -35,6 +35,8 @@ const initialData = {
       frontend: ['React.js', 'Next.js', 'TypeScript', 'HTML', 'CSS', 'Bootstrap', 'Tailwind CSS'],
       backend: ['Node.js', 'Express.js'],
       databases: ['MongoDB', 'MySQL', 'PostgreSQL', 'Drizzle ORM'],
+      cloud: ['Vercel', 'Netlify', 'Cloudflare', 'AWS'],
+      aiTools: ['Claude', 'ChatGPT', 'v0.dev'],
       tools: ['Docker', 'Terraform', 'Git & GitHub'],
     },
   },

@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Download, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Mail, Download, ArrowRight, Sparkles, CheckCircle2, Linkedin, Github } from 'lucide-react';
 
 const Hero = ({ data }) => {
-  const heroData = data || {
+  const defaultSocialLinks = {
+    linkedin: 'https://www.linkedin.com/in/surya-prakash-reddy-bhavanam-125317287/',
+    github: 'https://github.com/BSPREDDY',
+    email: 'mailto:suryaprakashbhavanam@gmail.com',
+    whatsapp: 'https://api.whatsapp.com/send?phone=6302098876&app=facebook&entry_point=page_cta',
+    instagram: 'https://www.instagram.com/_surya_prakash_reddy_28',
+  };
+
+  const heroData = {
     name: 'Surya Prakash Reddy',
     typewriterRoles: [
       'Full Stack MERN Developer',
@@ -14,7 +22,11 @@ const Hero = ({ data }) => {
       'Passionate Web Developer and Computer Science graduate (2025) skilled in building modern, responsive full-stack web applications with React, Node.js, Express, and MongoDB.',
     projectsCompleted: 1,
     email: 'suryaprakashbhavanam@gmail.com',
+    socialLinks: defaultSocialLinks,
+    ...(data || {}),
   };
+
+  const socialLinks = { ...defaultSocialLinks, ...(heroData.socialLinks || {}) };
 
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -130,16 +142,21 @@ const Hero = ({ data }) => {
               <a href={`mailto:${heroData.email}`} className="btn btn-primary">
                 <Mail size={18} /> Hire Me!
               </a>
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+                style={{
+                  borderColor: 'rgba(0, 119, 181, 0.5)',
+                  color: '#0077b5',
+                  backgroundColor: 'rgba(0, 119, 181, 0.1)',
+                }}
+              >
+                <Linkedin size={18} /> LinkedIn
+              </a>
               <a href="#projects" className="btn btn-secondary">
                 View Projects <ArrowRight size={18} />
-              </a>
-              <a
-                href="/assets/Surya_Resume.pdf"
-                download
-                className="btn btn-secondary"
-                style={{ borderColor: 'rgba(50, 168, 82, 0.4)', color: '#32a852' }}
-              >
-                <Download size={18} /> Resume
               </a>
             </div>
 

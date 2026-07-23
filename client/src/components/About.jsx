@@ -1,24 +1,33 @@
 import React from 'react';
-import { Server, Layout, Database, Terminal } from 'lucide-react';
+import { Server, Layout, Database, Terminal, Cloud, Bot } from 'lucide-react';
 
 const About = ({ data }) => {
-  const aboutData = data || {
+  const defaultSkills = {
+    frontend: ['React.js', 'Next.js', 'TypeScript', 'HTML', 'CSS', 'Bootstrap', 'Tailwind CSS'],
+    backend: ['Node.js', 'Express.js'],
+    databases: ['MongoDB', 'MySQL', 'PostgreSQL', 'Drizzle ORM'],
+    cloud: ['Vercel', 'Netlify', 'Cloudflare', 'AWS'],
+    aiTools: ['Claude', 'ChatGPT', 'v0.dev'],
+    tools: ['Docker', 'Terraform', 'Git & GitHub'],
+  };
+
+  const aboutData = {
     title: "I'm a Web Developer with hands-on experience in building websites and web applications.",
     description:
       'I focus on creating simple, user-friendly, and efficient web solutions that meet user needs. I enjoy learning new technologies and improving my skills to stay updated in the tech field. I like solving problems, taking on new challenges, and working with teams to build better digital products.',
-    skills: {
-      frontend: ['React.js', 'Next.js', 'TypeScript', 'HTML', 'CSS', 'Bootstrap', 'Tailwind CSS'],
-      backend: ['Node.js', 'Express.js'],
-      databases: ['MongoDB', 'MySQL', 'PostgreSQL', 'Drizzle ORM'],
-      tools: ['Docker', 'Terraform', 'Git & GitHub'],
-    },
+    ...(data || {}),
+  };
+
+  const skills = {
+    ...defaultSkills,
+    ...(aboutData.skills || {}),
   };
 
   const skillCategories = [
     {
       label: 'Frontend',
       icon: <Layout size={20} />,
-      items: aboutData.skills.frontend,
+      items: skills.frontend || defaultSkills.frontend,
       bg: 'rgba(30, 144, 255, 0.15)',
       color: '#1e90ff',
       chipBg: 'rgba(255, 255, 255, 0.05)',
@@ -28,7 +37,7 @@ const About = ({ data }) => {
     {
       label: 'Backend',
       icon: <Server size={20} />,
-      items: aboutData.skills.backend,
+      items: skills.backend || defaultSkills.backend,
       bg: 'rgba(50, 168, 82, 0.15)',
       color: '#32a852',
       chipBg: 'rgba(50, 168, 82, 0.08)',
@@ -38,7 +47,7 @@ const About = ({ data }) => {
     {
       label: 'Databases & ORM',
       icon: <Database size={20} />,
-      items: aboutData.skills.databases,
+      items: skills.databases || defaultSkills.databases,
       bg: 'rgba(138, 43, 226, 0.15)',
       color: '#8a2be2',
       chipBg: 'rgba(138, 43, 226, 0.08)',
@@ -46,9 +55,29 @@ const About = ({ data }) => {
       chipColor: '#b57bee',
     },
     {
+      label: 'Cloud & Hosting',
+      icon: <Cloud size={20} />,
+      items: skills.cloud || defaultSkills.cloud,
+      bg: 'rgba(0, 191, 255, 0.15)',
+      color: '#00bfff',
+      chipBg: 'rgba(0, 191, 255, 0.08)',
+      chipBorder: 'rgba(0, 191, 255, 0.2)',
+      chipColor: '#38bdf8',
+    },
+    {
+      label: 'AI Tools',
+      icon: <Bot size={20} />,
+      items: skills.aiTools || defaultSkills.aiTools,
+      bg: 'rgba(236, 72, 153, 0.15)',
+      color: '#ec4899',
+      chipBg: 'rgba(236, 72, 153, 0.08)',
+      chipBorder: 'rgba(236, 72, 153, 0.2)',
+      chipColor: '#f472b6',
+    },
+    {
       label: 'Tools & DevOps',
       icon: <Terminal size={20} />,
-      items: aboutData.skills.tools,
+      items: skills.tools || defaultSkills.tools,
       bg: 'rgba(255, 165, 0, 0.15)',
       color: '#ffa500',
       chipBg: 'rgba(255, 165, 0, 0.08)',

@@ -92,7 +92,7 @@ const Qualification = ({ data }) => {
             ))}
           </div>
 
-          <div
+          {/* <div
             style={{
               textAlign: 'center',
               marginTop: '48px',
@@ -108,7 +108,7 @@ const Qualification = ({ data }) => {
             <a href="/assets/Surya_Resume.pdf" download className="btn btn-primary">
               <Download size={18} /> Download Full Resume (PDF)
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
 

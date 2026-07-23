@@ -48,7 +48,7 @@ const Header = ({ activeSection }) => {
               <Code2 size={20} />
             </div>
             <span className="header-brand-text">
-              Surya<span style={{ color: '#1e90ff' }}> Reddy</span>
+              Surya<span style={{ color: '#1e90ff' }}> Prakash Reddy</span>
             </span>
           </a>
 
